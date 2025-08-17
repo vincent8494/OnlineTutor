@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Services - OnlineTutor</title>
+  <title>OnlineTutor - Online Courses</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,10 +17,10 @@
         <span class="logo-text">OnlineTutor</span>
       </div>
       <nav class="main-nav">
-        <a class="active" href="services.html">Home</a>
+        <a href="index.html">Home</a>
         <a href="all-courses.html">Learning Materials</a>
         <a href="about.html">About</a>
-        <a href="index.html">Services</a>
+        <a class="active" href="services.html">Services</a>
         <a href="contact.html">Contact</a>
       </nav>
       <button class="mobile-menu" aria-label="Open Menu">☰</button>
@@ -28,106 +28,83 @@
   </header>
 
   <main>
-    <section class="services-hero">
+    <section class="hero">
+      <div class="hero-bg" role="img" aria-label="Students learning"></div>
       <div class="container hero-content">
-        <h1>Assignment Helper | Online Assignment Help</h1>
-        <p>Get top-quality academic assistance with online assignment help services</p>
-        <a href="contact.html" class="btn btn-accent">Get Online Assignment Help</a>
-        <p class="trusted">Trusted by 1.1M+ Happy Students</p>
-        <div class="trust-badges" aria-label="Ratings and reviews">
-          <div class="badge-card">
-            <div class="brand">
-              <img src="https://cdn.simpleicons.org/trustpilot/00b67a" alt="Trustpilot" />
-              <span>Trustpilot</span>
-            </div>
-            <div class="score">4.4</div>
-          </div>
-          <div class="badge-card">
-            <div class="brand">
-              <img src="https://cdn.simpleicons.org/readthedocs/4b5bdc" alt="EduReviewer" />
-              <span>EduReviewer</span>
-            </div>
-            <div class="score">4.4</div>
-          </div>
-          <div class="badge-card">
-            <div class="brand">
-              <img src="https://cdn.simpleicons.org/appstore/0d6efd" alt="App Review" />
-              <span>App Review</span>
-            </div>
-            <div class="score">5</div>
-          </div>
-          <div class="badge-card">
-            <div class="brand">
-              <img src="https://cdn.simpleicons.org/googleclassroom/5b6bd5" alt="Student Review" />
-              <span>Student Review</span>
-            </div>
-            <div class="score">4.8</div>
-          </div>
-        </div>
+        <h1>Learn from Industry Experts</h1>
+        <p>Master in‑demand skills with practical, up‑to‑date courses crafted by real‑world professionals.</p>
+        <a class="btn btn-primary" href="#courses">View Learning Materials</a>
       </div>
-      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0,64L48,69.3C96,75,192,85,288,96C384,107,480,117,576,112C672,107,768,85,864,69.3C960,53,1056,43,1152,58.7C1248,75,1344,117,1392,138.7L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z" fill="#fff"/>
-      </svg>
+      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0,64L48,69.3C96,75,192,85,288,96C384,107,480,117,576,112C672,107,768,85,864,69.3C960,53,1056,43,1152,58.7C1248,75,1344,117,1392,138.7L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z" fill="#fff"/></svg>
     </section>
 
-    <section class="aspects-section">
+    <section class="features container">
+      <article class="card feature">
+        <div class="icon blue"> 
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10H7"/><path d="M21 6H3"/><path d="M21 14H3"/><path d="M21 18H7"/>
+          </svg>
+        </div>
+        <h3>Actionable Training</h3>
+        <p>Hands‑on lessons, projects, and exercises to help you apply what you learn immediately.</p>
+      </article>
+      <article class="card feature">
+        <div class="icon teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a4 4 0 0 1-8 0V5"/>
+            <line x1="3" y1="19" x2="21" y2="19"/>
+          </svg>
+        </div>
+        <h3>Interesting Quizzes</h3>
+        <p>Engaging quizzes that reinforce knowledge and track your progress along the way.</p>
+      </article>
+      <article class="card feature">
+        <div class="icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"/>
+          </svg>
+        </div>
+        <h3>Premium Material</h3>
+        <p>High‑quality resources, downloadable templates, and reference guides curated by experts.</p>
+      </article>
+    </section>
+
+    <section id="courses" class="courses">
       <div class="container">
-        <div class="pill">4 SIGNIFICANT ASPECTS OF</div>
-        <h2 class="section-title">Assignment Help Service</h2>
-        <div class="aspects-grid">
-          <article class="aspect-card">
-            <div class="badge">1</div>
-            <div class="aspect-head">
-              <div class="aspect-icon"><img src="https://images.unsplash.com/photo-1544716278-e513176f20b5?w=120&q=60" alt="Quality"></div>
-              <h3>Assured Quality</h3>
-            </div>
-            <ul class="ticks">
-              <li>100% task accuracy</li>
-              <li>Detailed explanations</li>
-              <li>Step‑wise solutions</li>
-            </ul>
-          </article>
-          <article class="aspect-card">
-            <div class="badge">2</div>
-            <div class="aspect-head">
-              <div class="aspect-icon"><img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=120&q=60" alt="Time"></div>
-              <h3>Time Constraints</h3>
-            </div>
-            <ul class="ticks">
-              <li>Quick turnover time</li>
-              <li>24/7 expert guidance</li>
-              <li>On‑time submission</li>
-            </ul>
-          </article>
-          <article class="aspect-card">
-            <div class="badge">3</div>
-            <div class="aspect-head">
-              <div class="aspect-icon"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=120&q=60" alt="Unique"></div>
-              <h3>Uniqueness</h3>
-            </div>
-            <ul class="ticks">
-              <li>Non‑plagiarized task</li>
-              <li>Personalized solutions</li>
-              <li>Multiple modifications</li>
-            </ul>
-          </article>
-          <article class="aspect-card">
-            <div class="badge">4</div>
-            <div class="aspect-head">
-              <div class="aspect-icon">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M22 9.5L12 5 2 9.5l10 4.5 10-4.5Z" stroke="#1e4bff" stroke-width="1.6" stroke-linejoin="round"/>
-                  <path d="M6 12.5v4c0 .9 2.7 2 6 2s6-1.1 6-2v-4" stroke="#1e4bff" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M22 12v4" stroke="#1e4bff" stroke-width="1.6" stroke-linecap="round"/>
-                </svg>
+        <header class="section-header">
+          <h2>Our Most Popular Online Learning Materials</h2>
+          <p>Learn specialized skills with clear, outcome-driven curricula designed to be finished.</p>
+        </header>
+        <div class="grid">
+          <article class="card course">
+            <div class="thumb" style="--bg:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=60')"></div>
+            <div class="course-body">
+              <h3>Social Media Marketing</h3>
+              <p>Build audiences and run campaigns that convert across major platforms.</p>
+              <div class="actions">
+                <a href="https://wa.me/c/56939301910" target="_blank" rel="noopener" class="btn btn-primary">Explore</a>
               </div>
-              <h3>Learning Scope</h3>
             </div>
-            <ul class="ticks">
-              <li>Thorough subject understanding</li>
-              <li>Cover knowledge gaps</li>
-              <li>Increased knowledge retention</li>
-            </ul>
+          </article>
+          <article class="card course">
+            <div class="thumb" style="--bg:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=60')"></div>
+            <div class="course-body">
+              <h3>Email Marketing Strategies</h3>
+              <p>Design funnels and write sequences that boost open rates and revenue.</p>
+              <div class="actions">
+                <a href="https://wa.me/c/56939301910" target="_blank" rel="noopener" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
+          </article>
+          <article class="card course">
+            <div class="thumb" style="--bg:url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1200&q=60')"></div>
+            <div class="course-body">
+              <h3>Content Marketing</h3>
+              <p>Create impactful content and measure results with real analytics.</p>
+              <div class="actions">
+                <a href="https://wa.me/c/56939301910" target="_blank" rel="noopener" class="btn btn-primary">Explore</a>
+              </div>
+            </div>
           </article>
         </div>
       </div>
@@ -169,30 +146,7 @@
       }));
     }
 
-    // Randomize trust badge scores between 4.0 and 5.0 (inclusive) on each load
-    (function(){
-      const container = document.querySelector('.trust-badges');
-      if (!container) return;
-      const scores = container.querySelectorAll('.score');
-      scores.forEach(el => {
-        // pick an integer in [40, 50], then divide by 10 -> {4.0, 4.1, ..., 5.0}
-        const tenths = Math.floor(40 + Math.random() * 11);
-        const val = tenths / 10;
-        el.textContent = val.toFixed(1);
-      });
-    })();
-
-    // Increment trusted student count by 0.1M every week from a fixed epoch
-    (function(){
-      const el = document.querySelector('.trusted');
-      if (!el) return;
-      const baseValue = 1.1; // starting value in millions (M)
-      const epoch = new Date('2025-08-17T00:00:00'); // adjust if needed
-      const weekMs = 7 * 24 * 60 * 60 * 1000;
-      const weeksElapsed = Math.max(0, Math.floor((Date.now() - epoch.getTime()) / weekMs));
-      const current = (baseValue + 0.1 * weeksElapsed).toFixed(1);
-      el.textContent = `Trusted by ${current}M+ Happy Students`;
-    })();
+    // (no extra Services page scripts needed on this page)
   </script>
   <script src="assets/bubbles.js" defer></script>
 </body>
