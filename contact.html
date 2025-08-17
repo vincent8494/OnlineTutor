@@ -81,7 +81,8 @@
               <textarea id="message" name="message" required rows="5" placeholder="Write your message here..."></textarea>
             </label>
           </div>
-          <button class="btn btn-primary" type="submit">Send Message</button>
+          <button class="btn btn-primary" type="submit" id="sendBtn">Send Message</button>
+          <p id="formStatus" style="margin-top:10px;color:#64748b"></p>
         </form>
       </div>
     </section>
@@ -120,20 +121,52 @@
   </script>
   <script src="assets/nav.js" defer></script>
   <script>
-    // Handle contact form submit -> open mail client with prefilled content
+    // Handle contact form submit -> send to Vercel serverless function without opening mail client
     const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('formStatus');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function setStatus(text, type = 'info'){
+      if (!statusEl) return;
+      statusEl.textContent = text;
+      statusEl.style.color = type === 'error' ? '#dc2626' : type === 'success' ? '#16a34a' : '#64748b';
+    }
+
     if (form) {
-      form.addEventListener('submit', function (e) {
+      form.addEventListener('submit', async function (e) {
         e.preventDefault();
         const name = (document.getElementById('fullName') || {}).value || '';
         const email = (document.getElementById('email') || {}).value || '';
-        const subjectInput = (document.getElementById('subject') || {}).value || '';
+        const subject = (document.getElementById('subject') || {}).value || '';
         const message = (document.getElementById('message') || {}).value || '';
 
-        const subject = subjectInput || `New message from ${name || 'Website User'}`;
-        const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-        const mailto = `mailto:assignmenthelp6435@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailto;
+        if (!name || !email || !message) {
+          setStatus('Please fill in your name, email, and message.', 'error');
+          return;
+        }
+
+        try {
+          setStatus('Sending… please wait.');
+          if (sendBtn) { sendBtn.disabled = true; sendBtn.textContent = 'Sending…'; }
+
+          const resp = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, subject, message })
+          });
+
+          const data = await resp.json().catch(() => ({}));
+          if (!resp.ok || data?.ok !== true) {
+            throw new Error(data?.error || 'Failed to send message');
+          }
+
+          setStatus('Thanks! Your message has been sent successfully.', 'success');
+          form.reset();
+        } catch (err) {
+          setStatus('Sorry, we could not send your message. Please try again later.', 'error');
+        } finally {
+          if (sendBtn) { sendBtn.disabled = false; sendBtn.textContent = 'Send Message'; }
+        }
       });
     }
   </script>
