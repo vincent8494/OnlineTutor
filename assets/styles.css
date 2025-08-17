@@ -87,7 +87,9 @@ img{max-width:100%;display:block}
 .main-nav a{color:#e7eefc;text-decoration:none;font-weight:500;opacity:.9}
 .main-nav a.active{color:#fff}
 .main-nav a:hover{opacity:1}
-.mobile-menu{display:none;background:none;border:0;color:#fff;font-size:24px}
+.mobile-menu{display:none;background:none;border:0;color:#fff;font-size:24px;position:relative;z-index:50;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent;line-height:1}
+/* Ensure adequate tap target */
+.mobile-menu{min-width:44px;min-height:44px;display:none;align-items:center;justify-content:center}
 
 /* Hero */
 .hero{position:relative;padding:80px 0 120px}
@@ -618,10 +620,10 @@ input:focus,textarea:focus{border-color:#b5ccff;box-shadow:0 0 0 3px #e6f0ff}
   .faq-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width: 640px){
-  .main-nav{display:none;position:absolute;right:20px;top:62px;background:#134fb8;border-radius:12px;padding:12px 14px;flex-direction:column;box-shadow:var(--shadow);z-index:20}
+  .main-nav{display:none;position:absolute;right:20px;top:62px;background:#134fb8;border-radius:12px;padding:12px 14px;flex-direction:column;box-shadow:var(--shadow);z-index:40}
   .main-nav.open{display:flex}
   .main-nav a{display:block;padding:10px 12px}
-  .mobile-menu{display:block}
+  .mobile-menu{display:inline-flex}
   .site-header{overflow:visible}
   .features,.grid{grid-template-columns:1fr}
   .hero h1{font-size:36px}
