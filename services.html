@@ -17,10 +17,10 @@
         <span class="logo-text">OnlineTutor</span>
       </div>
       <nav class="main-nav">
-        <a href="services.html" class="active">Home</a>
+        <a href="index.html">Home</a>
         <a href="all-courses.html">Learning Materials</a>
         <a href="about.html">About</a>
-        <a href="index.html">Services</a>
+        <a class="active" href="services.html">Services</a>
         <a href="contact.html">Contact</a>
       </nav>
       <button class="mobile-menu" aria-label="Open Menu">☰</button>
@@ -144,7 +144,30 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     const btn = document.querySelector('.mobile-menu');
     const nav = document.querySelector('.main-nav');
-    btn.addEventListener('click', () => nav.classList.toggle('open'));
+    if (btn && nav) {
+      btn.setAttribute('aria-expanded', 'false');
+      nav.setAttribute('aria-hidden', 'true');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        nav.setAttribute('aria-hidden', String(!open));
+      });
+      document.addEventListener('click', (e) => {
+        const open = nav.classList.contains('open');
+        if (!open) return;
+        if (!nav.contains(e.target) && e.target !== btn) {
+          nav.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          nav.setAttribute('aria-hidden', 'true');
+        }
+      });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        nav.setAttribute('aria-hidden', 'true');
+      }));
+    }
 
     // Randomize trust badge scores between 4.0 and 5.0 (inclusive) on each load
     (function(){

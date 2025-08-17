@@ -17,10 +17,10 @@
         <span class="logo-text">OnlineTutor</span>
       </div>
       <nav class="main-nav">
-        <a href="services.html">Home</a>
+        <a class="active" href="index.html">Home</a>
         <a href="all-courses.html">Learning Materials</a>
         <a href="about.html">About</a>
-        <a class="active" href="#">Services</a>
+        <a href="services.html">Services</a>
         <a href="contact.html">Contact</a>
       </nav>
       <button class="mobile-menu" aria-label="Open Menu">☰</button>
@@ -120,7 +120,32 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     const btn = document.querySelector('.mobile-menu');
     const nav = document.querySelector('.main-nav');
-    btn.addEventListener('click', () => nav.classList.toggle('open'));
+    if (btn && nav) {
+      btn.setAttribute('aria-expanded', 'false');
+      nav.setAttribute('aria-hidden', 'true');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        nav.setAttribute('aria-hidden', String(!open));
+      });
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        const open = nav.classList.contains('open');
+        if (!open) return;
+        if (!nav.contains(e.target) && e.target !== btn) {
+          nav.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          nav.setAttribute('aria-hidden', 'true');
+        }
+      });
+      // Close after selecting a link (improves UX on mobile)
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        nav.setAttribute('aria-hidden', 'true');
+      }));
+    }
   </script>
   <script src="assets/bubbles.js" defer></script>
 </body>

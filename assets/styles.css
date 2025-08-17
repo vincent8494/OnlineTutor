@@ -76,6 +76,7 @@ img{max-width:100%;display:block}
   position:relative;
   overflow:hidden;
 }
+.site-header .nav{position:relative; z-index:40}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 20px}
 .logo{display:flex;align-items:center;gap:12px;font-weight:800}
 .logo-mark{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:#e6efff;color:#134fb8;border-radius:8px;font-weight:800}
@@ -617,17 +618,16 @@ input:focus,textarea:focus{border-color:#b5ccff;box-shadow:0 0 0 3px #e6f0ff}
   .faq-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width: 640px){
-  .main-nav{display:none;position:absolute;right:20px;top:62px;background:#134fb8;border-radius:12px;padding:12px 14px;flex-direction:column;box-shadow:var(--shadow)}
+  .main-nav{display:none;position:absolute;right:20px;top:62px;background:#134fb8;border-radius:12px;padding:12px 14px;flex-direction:column;box-shadow:var(--shadow);z-index:20}
   .main-nav.open{display:flex}
+  .main-nav a{display:block;padding:10px 12px}
   .mobile-menu{display:block}
+  .site-header{overflow:visible}
   .features,.grid{grid-template-columns:1fr}
-  .hero{padding:64px 0 100px}
-  .services-hero h1{font-size:30px}
-  .testimonials-grid{grid-template-columns:1fr}
-  .instructors-grid{grid-template-columns:1fr}
-  .team-cards{grid-template-columns:1fr}
-  .contact-info{grid-template-columns:1fr;margin-top:-20px}
-  .form-grid{grid-template-columns:1fr}
+  .hero h1{font-size:36px}
+  .instructors-grid{grid-template-columns:repeat(2,1fr)}
+  .about-intro{grid-template-columns:1fr}
+  .contact-info{grid-template-columns:1fr 1fr;margin-top:-40px}
   .faq-grid{grid-template-columns:1fr}
 }
 
