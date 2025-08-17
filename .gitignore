@@ -1,0 +1,21 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node (not used, but safe defaults)
+node_modules/
+dist/
+build/
+.cache/
+
+# Env
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/

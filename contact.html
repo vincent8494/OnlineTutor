@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact - OnlineTutor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <div class="logo">
+        <img src="assets/logo.png" alt="OnlineTutor logo" />
+        <span class="logo-text">OnlineTutor</span>
+      </div>
+      <nav class="main-nav">
+        <a href="services.html">Home</a>
+        <a href="all-courses.html">Learning Materials</a>
+        <a href="about.html">About</a>
+        <a href="index.html">Services</a>
+        <a class="active" href="#">Contact</a>
+      </nav>
+      <button class="mobile-menu" aria-label="Open Menu">☰</button>
+    </div>
+
+    <div class="page-hero contact-hero">
+      <div class="hero-bg" role="img" aria-label="Help and support"></div>
+      <div class="container hero-content">
+        <h1>Need Help?</h1>
+        <p>Please leave us a message regarding learning materials, assignment help, or any of our services and offers. Our team will get back to you within 24 business hours.</p>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0,64L48,69.3C96,75,192,85,288,96C384,107,480,117,576,112C672,107,768,85,864,69.3C960,53,1056,43,1152,58.7C1248,75,1344,117,1392,138.7L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z" fill="#fff"/></svg>
+    </div>
+  </header>
+
+  <main>
+    <section class="container contact-info">
+      <article class="card info">
+        <div class="icon" style="background:#25D366">
+          <img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="WhatsApp" style="width:26px;height:26px"/>
+        </div>
+        <h3>WhatsApp Me</h3>
+        <p>
+          <a class="btn-wa" href="https://wa.me/qr/SBZR5RMWAVY6M1" target="_blank" rel="noopener">Open WhatsApp (Primary)</a>
+          <a class="btn-wa secondary" href="https://wa.me/message/NVWITO6V6L5XF1" target="_blank" rel="noopener">Open WhatsApp (Alternate)</a>
+        </p>
+      </article>
+      <article class="card info">
+        <div class="icon teal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+        </div>
+        <h3>Write Us</h3>
+        <p><a href="mailto:assignmenthelp6435@gmail.com">assignmenthelp6435@gmail.com</a></p>
+      </article>
+    </section>
+
+    <section class="contact-form">
+      <div class="container">
+        <header class="section-header">
+          <h2>Send Us a Message</h2>
+        </header>
+        <form id="contactForm" class="card form">
+          <div class="grid form-grid">
+            <label>
+              <span>Full Name*</span>
+              <input id="fullName" name="fullName" required type="text" placeholder="Your name" />
+            </label>
+            <label>
+              <span>Email*</span>
+              <input id="email" name="email" required type="email" placeholder="you@example.com" />
+            </label>
+            <label class="full">
+              <span>Subject</span>
+              <input id="subject" name="subject" type="text" placeholder="How can we help?" />
+            </label>
+            <label class="full">
+              <span>Comment or Message*</span>
+              <textarea id="message" name="message" required rows="5" placeholder="Write your message here..."></textarea>
+            </label>
+          </div>
+          <button class="btn btn-primary" type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="container">
+        <header class="section-header">
+          <h2>Frequently Asked Questions</h2>
+        </header>
+        <div class="grid faq-grid">
+          <article class="card faq-item">
+            <h3>How long do I have access to the courses?</h3>
+            <p>Most courses include lifetime access. Check the course page for specifics.</p>
+          </article>
+          <article class="card faq-item">
+            <h3>Do you offer refunds?</h3>
+            <p>Yes, we provide a 1‑day money‑back guarantee if you’re not satisfied.</p>
+          </article>
+          <article class="card faq-item">
+            <h3>Can I learn at my own pace?</h3>
+            <p>Absolutely. Learn on your schedule from any device.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> OnlineTutor. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const btn = document.querySelector('.mobile-menu');
+    const nav = document.querySelector('.main-nav');
+    btn.addEventListener('click', () => nav.classList.toggle('open'));
+
+    // Handle contact form submit -> open mail client with prefilled content
+    const form = document.getElementById('contactForm');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = (document.getElementById('fullName') || {}).value || '';
+        const email = (document.getElementById('email') || {}).value || '';
+        const subjectInput = (document.getElementById('subject') || {}).value || '';
+        const message = (document.getElementById('message') || {}).value || '';
+
+        const subject = subjectInput || `New message from ${name || 'Website User'}`;
+        const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+        const mailto = `mailto:assignmenthelp6435@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailto;
+      });
+    }
+  </script>
+  <script src="assets/bubbles.js" defer></script>
+</body>
+</html>
