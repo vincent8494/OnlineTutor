@@ -16,14 +16,14 @@
         <img src="assets/logo.png" alt="OnlineTutor logo" />
         <span class="logo-text">OnlineTutor</span>
       </div>
-      <nav class="main-nav">
+      <nav class="main-nav" id="site-nav">
         <a href="index.html">Home</a>
         <a href="all-courses.html">Learning Materials</a>
         <a class="active" href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <button class="mobile-menu" aria-label="Open Menu">☰</button>
+      <button class="mobile-menu" type="button" aria-label="Open Menu" aria-controls="site-nav">☰</button>
     </div>
 
     <div class="page-hero">
@@ -130,40 +130,7 @@
   </footer>
 
   <script>
-    // Mobile menu (hardened for Samsung Internet)
-    const btn = document.querySelector('.mobile-menu');
-    const nav = document.querySelector('.main-nav');
-    if (btn && nav) {
-      btn.setAttribute('aria-expanded', 'false');
-      nav.setAttribute('aria-hidden', 'true');
-      let suppressCloseUntil = 0;
-      const onToggle = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const open = nav.classList.toggle('open');
-        btn.setAttribute('aria-expanded', String(open));
-        nav.setAttribute('aria-hidden', String(!open));
-        suppressCloseUntil = Date.now() + 200;
-      };
-      btn.addEventListener('pointerup', onToggle);
-      btn.addEventListener('click', onToggle);
-      document.addEventListener('pointerdown', (e) => {
-        const open = nav.classList.contains('open');
-        if (!open) return;
-        if (Date.now() < suppressCloseUntil) return;
-        if (!nav.contains(e.target) && e.target !== btn) {
-          nav.classList.remove('open');
-          btn.setAttribute('aria-expanded', 'false');
-          nav.setAttribute('aria-hidden', 'true');
-        }
-      }, { passive: true });
-      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-        nav.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-        nav.setAttribute('aria-hidden', 'true');
-      }));
-    }
-
+    document.getElementById('year').textContent = new Date().getFullYear();
     // Collapsible About cards
     document.querySelectorAll('.card-toggle').forEach(toggle => {
       toggle.addEventListener('click', () => {
@@ -175,6 +142,7 @@
       });
     });
   </script>
+  <script src="assets/nav.js" defer></script>
   <script src="assets/bubbles.js" defer></script>
 </body>
 </html>

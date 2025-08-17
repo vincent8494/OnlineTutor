@@ -87,7 +87,10 @@ img{max-width:100%;display:block}
 .main-nav a{color:#e7eefc;text-decoration:none;font-weight:500;opacity:.9}
 .main-nav a.active{color:#fff}
 .main-nav a:hover{opacity:1}
-.mobile-menu{display:none;background:none;border:0;color:#fff;font-size:24px;position:relative;z-index:50;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent;line-height:1}
+.mobile-menu{display:none;background:#000;border:1px solid #000;color:#fff;font-size:24px;position:relative;z-index:50;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent;line-height:1;padding:10px 14px;border-radius:10px;box-shadow:0 6px 14px rgba(0,0,0,.25)}
+.mobile-menu:hover{filter:brightness(1.05)}
+.mobile-menu:active{transform:translateY(1px)}
+.mobile-menu:focus-visible{outline:3px solid #bcd2ff;outline-offset:3px}
 /* Ensure adequate tap target */
 .mobile-menu{min-width:44px;min-height:44px;display:none;align-items:center;justify-content:center}
 
@@ -623,6 +626,8 @@ input:focus,textarea:focus{border-color:#b5ccff;box-shadow:0 0 0 3px #e6f0ff}
   .main-nav{display:none;position:absolute;right:20px;top:62px;background:#134fb8;border-radius:12px;padding:12px 14px;flex-direction:column;box-shadow:var(--shadow);z-index:40}
   .main-nav.open{display:flex}
   .main-nav a{display:block;padding:10px 12px}
+  /* Ensure the hamburger button is visible and clickable on mobile */
+  .mobile-menu{display:flex;align-items:center;justify-content:center;cursor:pointer}
   .mobile-menu{display:inline-flex}
   .site-header{overflow:visible}
   .features,.grid{grid-template-columns:1fr}
