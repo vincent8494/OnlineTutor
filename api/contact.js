@@ -66,10 +66,11 @@ export default async function handler(req, res) {
       </div>
     `;
 
+    const displayName = name ? `${name} via OnlineTutor` : 'via OnlineTutor';
     const mailOptions = forceFromUser
       ? {
-          // Force exact user From and SMTP envelope
-          from: { name, address: email },
+          // Force exact user From (with service tag) and SMTP envelope
+          from: { name: displayName, address: email },
           to,
           subject: emailSubject,
           html,
@@ -78,8 +79,8 @@ export default async function handler(req, res) {
           envelope: { from: email, to },
         }
       : {
-          // Deliverability-safe: user shows in From header, but SMTP uses authenticated sender
-          from: { name, address: email },
+          // Deliverability-safe: user shows in From header (with service tag), SMTP uses authenticated sender
+          from: { name: displayName, address: email },
           sender: { name: fromName, address: from },
           to,
           subject: emailSubject,
