@@ -9,7 +9,7 @@
   },
   "headers": [
     {
-      "source": "**/*.html",
+      "source": "/(.*)\\.html",
       "headers": [
         { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate" }
       ]
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "source": "**/*.(css|js|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot)",
+      "source": "/.*\\.(css|js|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
