@@ -1,12 +1,6 @@
 {
-  "version": 2,
   "trailingSlash": false,
   "cleanUrls": true,
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "headers": [
     {
       "source": "/:path*.html",
