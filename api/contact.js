@@ -1,8 +1,15 @@
-// Vercel Serverless Function to send contact form emails via Resend API
+// Vercel Serverless Function to send contact form emails via Nodemailer (Gmail SMTP)
 // Required env vars in Vercel Project Settings -> Environment Variables:
-// - RESEND_API_KEY: your Resend API key
-// - CONTACT_TO_EMAIL: destination email address
-// - CONTACT_FROM_EMAIL: verified sender email on Resend (e.g., contact@yourdomain.com)
+// - SMTP_HOST=smtp.gmail.com
+// - SMTP_USER=yourgmail@gmail.com
+// - SMTP_PASS=your_app_password (16 chars)
+// - SMTP_PORT=587 (or 465)
+// - SMTP_SECURE=tls (or ssl)
+// - CONTACT_TO_EMAIL=destination@example.com
+// - CONTACT_FROM_EMAIL=yourgmail@gmail.com (usually same as SMTP_USER)
+// - CONTACT_FROM_NAME=OnlineTutor
+
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -13,33 +20,41 @@ export default async function handler(req, res) {
   try {
     const { name, email, subject, message } = req.body || {};
 
-    // Basic validation
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Missing required fields: name, email, message' });
     }
 
-    // basic email shape check
     const emailOk = /.+@.+\..+/.test(String(email));
     if (!emailOk) {
       return res.status(400).json({ error: 'Please provide a valid email address.' });
     }
 
-    const to = process.env.CONTACT_TO_EMAIL;
-    const from = process.env.CONTACT_FROM_EMAIL;
-    const apiKey = process.env.RESEND_API_KEY;
+    const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = (process.env.SMTP_PASS || '').replace(/\s+/g, '');
+    const smtpPort = Number(process.env.SMTP_PORT || 587);
+    const smtpSecure = (process.env.SMTP_SECURE || 'tls').toLowerCase() === 'ssl';
 
-    if (!to || !from || !apiKey) {
-      return res.status(500).json({ error: 'Server not configured: missing RESEND_API_KEY/CONTACT_TO_EMAIL/CONTACT_FROM_EMAIL' });
+    const to = process.env.CONTACT_TO_EMAIL;
+    const from = process.env.CONTACT_FROM_EMAIL || smtpUser;
+    const fromName = process.env.CONTACT_FROM_NAME || 'OnlineTutor';
+
+    if (!smtpUser || !smtpPass || !to || !from) {
+      return res.status(500).json({ error: 'Server not configured: missing SMTP_USER/SMTP_PASS/CONTACT_TO_EMAIL/CONTACT_FROM_EMAIL' });
     }
 
-    const emailSubject = subject && String(subject).trim() !== ''
-      ? `[OnlineTutor] ${subject}`
-      : '[OnlineTutor] New contact form submission';
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure, // true for 465, false for 587
+      auth: { user: smtpUser, pass: smtpPass },
+    });
 
-    // Compose a simple HTML email
+    const emailSubject = subject && String(subject).trim() !== '' ? subject : 'Online Tutor';
+
     const html = `
       <div style="font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;color:#0f2137">
-        <h2 style="margin:0 0 12px">New Contact Form Submission</h2>
+        <h2 style="margin:0 0 12px">${escapeHtml(subject || 'Message')}</h2>
         <p style="margin:0 0 8px"><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p style="margin:0 0 8px"><strong>Email:</strong> ${escapeHtml(email)}</p>
         ${subject ? `<p style="margin:0 0 8px"><strong>Subject:</strong> ${escapeHtml(subject)}</p>` : ''}
@@ -48,29 +63,16 @@ export default async function handler(req, res) {
       </div>
     `;
 
-    // Send via Resend API using fetch
-    const resp = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        subject: emailSubject,
-        html,
-        reply_to: email // so you can reply directly to the sender
-      })
+    const info = await transporter.sendMail({
+      from: { name: fromName, address: from },
+      to,
+      subject: emailSubject,
+      html,
+      replyTo: { name, address: email },
+      text: `${subject || 'Message'}\n\nName: ${name}\nEmail: ${email}\n${subject ? `Subject: ${subject}\n\n` : '\n'}${message}`,
     });
 
-    if (!resp.ok) {
-      const err = await resp.json().catch(() => ({}));
-      return res.status(502).json({ error: 'Failed to send email', details: err });
-    }
-
-    const data = await resp.json().catch(() => ({}));
-    return res.status(200).json({ ok: true, id: data?.id || null });
+    return res.status(200).json({ ok: true, id: info?.messageId || null });
   } catch (e) {
     console.error('contact handler error', e);
     return res.status(500).json({ error: 'Unexpected server error' });

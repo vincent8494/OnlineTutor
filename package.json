@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "online-tutor-site",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "OnlineTutor static site with Vercel serverless contact function",
+  "dependencies": {
+    "nodemailer": "^6.9.13"
+  }
+}

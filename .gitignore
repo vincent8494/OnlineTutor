@@ -19,3 +19,6 @@ build/
 # IDE
 .vscode/
 .idea/
+
+# PHP / Composer
+vendor/
