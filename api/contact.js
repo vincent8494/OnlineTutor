@@ -64,12 +64,18 @@ export default async function handler(req, res) {
     `;
 
     const info = await transporter.sendMail({
-      from: { name: fromName, address: from },
+      // Show the sender in inbox as the user who filled the form
+      from: { name, address: email },
+      // Keep an authenticated sender for SMTP/DMARC compliance
+      sender: { name: fromName, address: from },
       to,
       subject: emailSubject,
       html,
+      // Reply directly to the user as well
       replyTo: { name, address: email },
       text: `${subject || 'Message'}\n\nName: ${name}\nEmail: ${email}\n${subject ? `Subject: ${subject}\n\n` : '\n'}${message}`,
+      // Ensure the SMTP envelope uses the authenticated mailbox
+      envelope: { from: smtpUser, to },
     });
 
     return res.status(200).json({ ok: true, id: info?.messageId || null });
