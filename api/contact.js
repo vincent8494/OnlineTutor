@@ -34,6 +34,7 @@ export default async function handler(req, res) {
     const smtpPass = (process.env.SMTP_PASS || '').replace(/\s+/g, '');
     const smtpPort = Number(process.env.SMTP_PORT || 587);
     const smtpSecure = (process.env.SMTP_SECURE || 'tls').toLowerCase() === 'ssl';
+    const forceFromUser = String(process.env.FORCE_FROM_USER || '').toLowerCase() === 'true';
 
     const to = process.env.CONTACT_TO_EMAIL;
     const from = process.env.CONTACT_FROM_EMAIL || smtpUser;
@@ -50,7 +51,9 @@ export default async function handler(req, res) {
       auth: { user: smtpUser, pass: smtpPass },
     });
 
-    const emailSubject = subject && String(subject).trim() !== '' ? subject : 'Online Tutor';
+    const baseSubject = subject && String(subject).trim() !== '' ? subject : 'Online Tutor';
+    // Prefix subject with user's name to surface it in inbox list even if From is rewritten by provider
+    const emailSubject = name ? `${name} — ${baseSubject}` : baseSubject;
 
     const html = `
       <div style="font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;color:#0f2137">
@@ -63,20 +66,30 @@ export default async function handler(req, res) {
       </div>
     `;
 
-    const info = await transporter.sendMail({
-      // Show the sender in inbox as the user who filled the form
-      from: { name, address: email },
-      // Keep an authenticated sender for SMTP/DMARC compliance
-      sender: { name: fromName, address: from },
-      to,
-      subject: emailSubject,
-      html,
-      // Reply directly to the user as well
-      replyTo: { name, address: email },
-      text: `${subject || 'Message'}\n\nName: ${name}\nEmail: ${email}\n${subject ? `Subject: ${subject}\n\n` : '\n'}${message}`,
-      // Ensure the SMTP envelope uses the authenticated mailbox
-      envelope: { from: smtpUser, to },
-    });
+    const mailOptions = forceFromUser
+      ? {
+          // Force exact user From and SMTP envelope
+          from: { name, address: email },
+          to,
+          subject: emailSubject,
+          html,
+          replyTo: { name, address: email },
+          text: `${subject || 'Message'}\n\nName: ${name}\nEmail: ${email}\n${subject ? `Subject: ${subject}\n\n` : '\n'}${message}`,
+          envelope: { from: email, to },
+        }
+      : {
+          // Deliverability-safe: user shows in From header, but SMTP uses authenticated sender
+          from: { name, address: email },
+          sender: { name: fromName, address: from },
+          to,
+          subject: emailSubject,
+          html,
+          replyTo: { name, address: email },
+          text: `${subject || 'Message'}\n\nName: ${name}\nEmail: ${email}\n${subject ? `Subject: ${subject}\n\n` : '\n'}${message}`,
+          envelope: { from: smtpUser, to },
+        };
+
+    const info = await transporter.sendMail(mailOptions);
 
     return res.status(200).json({ ok: true, id: info?.messageId || null });
   } catch (e) {
