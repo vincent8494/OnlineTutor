@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://0nline-tut0r.vercel.app/sitemap.xml
