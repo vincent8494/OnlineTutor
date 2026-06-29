@@ -1,6 +1,9 @@
 {
   "trailingSlash": false,
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/googlef35de08e6f5efa94.html", "destination": "/api/google-verify" }
+  ],
   "headers": [
     {
       "source": "/:path*.html",
